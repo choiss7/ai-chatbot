@@ -36,32 +36,36 @@ import { useBlock } from '@/hooks/use-block';
 import equal from 'fast-deep-equal';
 import { ImageEditor } from './image-editor';
 
+// 블록 종류 정의 - 텍스트, 코드, 이미지 타입 지원
 export type BlockKind = 'text' | 'code' | 'image';
 
+// UI 블록 인터페이스 정의
 export interface UIBlock {
-  title: string;
-  documentId: string;
-  kind: BlockKind;
-  content: string;
-  isVisible: boolean;
-  status: 'streaming' | 'idle';
-  boundingBox: {
+  title: string; // 블록 제목
+  documentId: string; // 문서 ID
+  kind: BlockKind; // 블록 종류 
+  content: string; // 블록 내용
+  isVisible: boolean; // 블록 표시 여부
+  status: 'streaming' | 'idle'; // 블록 상태 (스트리밍 중/대기)
+  boundingBox: { // 블록의 화면상 위치와 크기
     top: number;
     left: number;
-    width: number;
+    width: number; 
     height: number;
   };
 }
 
+// 콘솔 출력 내용 인터페이스
 export interface ConsoleOutputContent {
-  type: 'text' | 'image';
-  value: string;
+  type: 'text' | 'image'; // 출력 타입 (텍스트/이미지)
+  value: string; // 출력 값
 }
 
+// 콘솔 출력 인터페이스 
 export interface ConsoleOutput {
-  id: string;
-  status: 'in_progress' | 'loading_packages' | 'completed' | 'failed';
-  contents: Array<ConsoleOutputContent>;
+  id: string; // 출력 ID
+  status: 'in_progress' | 'loading_packages' | 'completed' | 'failed'; // 출력 상태
+  contents: Array<ConsoleOutputContent>; // 출력 내용 배열
 }
 
 function PureBlock({
